@@ -56,11 +56,11 @@ ceta=np.array([0,0,0,0,0,0])
 mse=[]
 def gradientDescentOneVar():
     global ceta,mse
-    for i in range(100000):
+    for i in range(10000):
         y_pred = xTrain.dot(ceta) 
         ceta = ceta - ((xTrain.T.dot(y_pred - yTrain)) * alpha * (1 / trainSize))
         ceta0,ceta1,ceta2,ceta3,ceta4,ceta5=ceta
-        #mse.append(MSE(ceta0,ceta1,ceta2,ceta3,ceta4,ceta5))
+        mse.append(MSE(ceta0,ceta1,ceta2,ceta3,ceta4,ceta5))
     print("MSE = ",MSE(ceta0,ceta1,ceta2,ceta3,ceta4,ceta5))
     print("Theta: ",ceta)
 
@@ -77,6 +77,12 @@ def MSE(ceta0,ceta1,ceta2,ceta3,ceta4,ceta5):
     return Esum
 
 gradientDescentOneVar()
+
+plt.plot(mse, label='Cost Function',c='red') 
+plt.xlabel("Iterations")
+plt.ylabel("Error")
+plt.legend()
+plt.show()
 
 def predTest():
     ytestpred = xTest.dot(ceta)
